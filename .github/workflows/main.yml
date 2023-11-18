@@ -15,7 +15,7 @@ jobs:
         uses: github/codeql-action/init@v2
         with:
           debug: true
-      - name: Output Information
-        run: |
-          echo "Approval UAT"
-          echo "${{ toJSON(github) }}"
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+        with:
+          category: "/language:${{matrix.language}}"
