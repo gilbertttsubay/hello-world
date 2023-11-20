@@ -1,0 +1,22 @@
+// Query untuk mengecek code duplicate
+
+// Definisi fungsi untuk membandingkan dua blok kode
+def compareBlocks(block1: Block, block2: Block):
+    result = True
+    for node1 in block1.statements:
+        for node2 in block2.statements:
+            if not isinstance(node1, node2.__class__):
+                result = False
+                break
+            if node1.text != node2.text:
+                result = False
+                break
+    return result
+
+// Mendeteksi code duplicate
+def detectDuplicateCode():
+    for file in files():
+        for block1 in file.ast.blocks:
+            for block2 in block1.next_siblings():
+                if compareBlocks(block1, block2):
+                    yield block1
